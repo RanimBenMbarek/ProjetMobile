@@ -1,0 +1,156 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 500,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "wmnuDwAAQBAJ",
+      "etag": "mtIle4NhYlI",
+      "selfLink": "https://content-books.googleapis.com/books/v1/volumes/wmnuDwAAQBAJ",
+      "volumeInfo": {
+        "title": "It Ends with Us",
+        "subtitle": "A Novel",
+        "authors": [
+          "Colleen Hoover"
+        ],
+        "publisher": "Pocket Books",
+        "publishedDate": "2020-07-28",
+        "description": "In this “brave and heartbreaking novel that digs its claws into you and doesn’t let go, long after you’ve finished it” (Anna Todd, New York Times bestselling author) from the #1 New York Times bestselling author of All Your Perfects, a workaholic with a too-good-to-be-true romance can’t stop thinking about her first love. Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town where she grew up—she graduated from college, moved to Boston, and started her own business. And when she feels a spark with a gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life seems too good to be true. Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what made him that way in the first place. As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan—her first love and a link to the past she left behind. He was her kindred spirit, her protector. When Atlas suddenly reappears, everything Lily has built with Ryle is threatened. An honest, evocative, and tender novel, It Ends with Us is “a glorious and touching read, a forever keeper. The kind of book that gets handed down” (USA TODAY).",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781982143657"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1982143657"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 448,
+        "printType": "BOOK",
+        "categories": [
+          "Fiction"
+        ],
+        "averageRating": 4.5,
+        "ratingsCount": 14,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.1.0.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=wmnuDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=wmnuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.com/books?id=wmnuDwAAQBAJ&printsec=frontcover&dq=it+ends+with+us&hl=&cd=1&source=gbs_api",
+        "infoLink": "http://books.google.com/books?id=wmnuDwAAQBAJ&dq=it+ends+with+us&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/It_Ends_with_Us.html?hl=&id=wmnuDwAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "TN",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "TN",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=wmnuDwAAQBAJ&hl=&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "An honest, evocative, and tender novel, It Ends with Us is “a glorious and touching read, a forever keeper. The kind of book that gets handed down” (USA TODAY)."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "WuNgEAAAQBAJ",
+      "etag": "4CBQLqHAGZM",
+      "selfLink": "https://content-books.googleapis.com/books/v1/volumes/WuNgEAAAQBAJ",
+      "volumeInfo": {
+        "title": "It Ends with Us, It Starts with Us Ebook Collection",
+        "subtitle": "It Ends with Us, It Starts with Us",
+        "authors": [
+          "Colleen Hoover"
+        ],
+        "publisher": "Simon and Schuster",
+        "publishedDate": "2022-12-27",
+        "description": "#1 New York Times bestselling author Colleen Hoover’s “glorious and touching” (USA TODAY) phenomenon and its long-anticipated sequel are together in this collection that is perfect for new and longtime fans of the evocative story of Lily, Ryle, and Atlas. In the “brave and heartbreaking” (Anna Todd, New York Times bestselling author) #1 New York Times bestselling TikTok sensation It Ends with Us, Lily is overwhelmed with passion for the inflexible and proud Ryle. But her too-good-to-be-true romance is suddenly a lot more complicated when her first love, Atlas, suddenly comes back into her life. Then, in It Starts with Us, read Atlas’s side of the story as Colleen Hoover explores more of Atlas’s past and what comes next for him, Lily, and Ryle.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781668009918"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1668009919"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": false
+        },
+        "pageCount": 586,
+        "printType": "BOOK",
+        "categories": [
+          "Fiction"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.2.2.0.preview.2",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=WuNgEAAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=WuNgEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.com/books?id=WuNgEAAAQBAJ&dq=it+ends+with+us&hl=&cd=2&source=gbs_api",
+        "infoLink": "http://books.google.com/books?id=WuNgEAAAQBAJ&dq=it+ends+with+us&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/It_Ends_with_Us_It_Starts_with_Us_Ebook.html?hl=&id=WuNgEAAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "TN",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "TN",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true
+        },
+        "pdf": {
+          "isAvailable": true
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=WuNgEAAAQBAJ&hl=&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "#1 New York Times bestselling author Colleen Hoover’s “glorious and touching” (USA TODAY) phenomenon and its long-anticipated sequel are together in this collection that is perfect for new and longtime fans of the evocative story of ..."
+      }
+    }
+  ]
+}
