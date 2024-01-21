@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+
 android {
     namespace = "com.example.projetmobile"
     compileSdk = 34
@@ -47,6 +48,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -69,5 +71,17 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.4.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.0")
+    // Coil
+    implementation ("com.github.skydoves:landscapist-coil:1.3.6")
+
+    // Accompanist
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.19.0")
+    implementation ("com.google.accompanist:accompanist-insets:0.19.0")
+    implementation ("com.google.accompanist:accompanist-insets-ui:0.19.0")
+
+
 }
