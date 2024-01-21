@@ -65,6 +65,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var popularBooks: List<Item>;
+        var books: List<Item>;
+
         super.onCreate(savedInstanceState)
         popularBooks= emptyList()
         setContent {
@@ -82,8 +84,8 @@ class MainActivity : ComponentActivity() {
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 // Use observeAsState to observe LiveData and update UI when data is received
-                val booksState = bookViewModel.books.observeAsState()
-                booksState.value?.let { booksResponse ->
+                val popularBooksState = bookViewModel.popularBooks.observeAsState()
+                popularBooksState.value?.let { booksResponse ->
                     val books = booksResponse.items
                     if (books.isNotEmpty()) {
                         popularBooks = books
@@ -105,6 +107,19 @@ class MainActivity : ComponentActivity() {
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
+                val booksState = bookViewModel.popularBooks.observeAsState()
+                booksState.value?.let { booksResponse ->
+                    val books = booksResponse.items
+                    if (books.isNotEmpty()) {
+                        popularBooks = books
+                    }
+                }
+                if (popularBooks.isNotEmpty()) {
+                    LazyRowFunction(popularBooks)
+                } else {
+                    // If the list is empty, display some placeholder or alternative UI
+                    //BookDetails()
+                }
 
             }
         }
