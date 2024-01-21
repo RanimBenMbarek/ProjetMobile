@@ -54,16 +54,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.coil.CoilImage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import java.io.FileOutputStream
-import java.net.URL
 
 
 class MainActivity : ComponentActivity() {
@@ -74,11 +68,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         popularBooks= emptyList()
         setContent {
-            // Use Column to arrange composables vertically
             Column(
                 modifier = Modifier
-                    .fillMaxSize() // Fill the entire available space
-                    .padding(16.dp) // Add padding for better spacing
+                    .fillMaxSize()
+                    .padding(16.dp)
             ) {
                 TextFieldView()
                 Spacer(modifier = Modifier.height(20.dp))
@@ -90,16 +83,12 @@ class MainActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(20.dp))
                 // Use observeAsState to observe LiveData and update UI when data is received
                 val booksState = bookViewModel.books.observeAsState()
-
-                // Check if booksState is not null and not empty, then update popularBooks
                 booksState.value?.let { booksResponse ->
                     val books = booksResponse.items
                     if (books.isNotEmpty()) {
                         popularBooks = books
                     }
                 }
-
-                // Check if popularBooks is not empty, then display the list
                 if (popularBooks.isNotEmpty()) {
                     LazyRowFunction(popularBooks)
                 } else {
@@ -110,7 +99,7 @@ class MainActivity : ComponentActivity() {
                 //LazyColumnFunction(popularBooks)
 
 
-                Spacer(modifier = Modifier.height(20.dp))
+                //Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "List of Books",
                     fontSize = 30.sp,
@@ -235,9 +224,10 @@ if (imageLinks != null) {
 fun Book(item: Item) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(150.dp)
+            .height(300.dp)
             .background(MaterialTheme.colorScheme.background)
-            .padding(10.dp)
+            .padding(5.dp)
     ) {
         if (item.volumeInfo.imageLinks != null) {
             val url: StringBuilder = StringBuilder(item.volumeInfo.imageLinks.thumbnail)
