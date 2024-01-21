@@ -1,47 +1,50 @@
 package com.example.projetmobile
 
-import android.content.ClipData.Item
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import book
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class BookViewModel : ViewModel() {
-    private val bookResponse = MutableLiveData<Item>()
-    var weather : LiveData<Item> = bookResponse
+    private val bookResponse = MutableLiveData<book>()
+    var books : LiveData<book> = bookResponse
+
+
+    init {
+        getBooks();
+    }
+
+    private fun getBooks() {
+        RetrofitHelper.retrofitService.getBook().enqueue(
+            object : Callback<book> {
+                override fun onResponse(
+                    call: Call<book>,
+                    response: Response<book>
+                ) {
+                    if (response.isSuccessful) {
+                        bookResponse.value = response.body()
+                    }
+                }
+
+                override fun onFailure(call: Call<book>, t: Throwable) {
+                    // Handle failure, if needed
+                }
+            }
+        )
+    }
+
 /*
-   init {
-       getWeather("Tunis")
-   }
-
-private fun getBook(city : String){
-       RetrofitHelper.retrofitService.getBook(city).enqueue(
-           object : Callback<bookResponse>{
-               override fun onResponse(
-                   call: Call<weatherResponse>,
-                   response: Response<weatherResponse>
-               ) {
-                   if(response.isSuccessful){
-                       weatherReponse.value = response.body()
-                   }
-               }
-
-               override fun onFailure(call: Call<weatherResponse>, t: Throwable) {
-
-               }
-
-           }
-       )
-   }
-
    fun changeCity(city : String) : String?{
        getWeather(city)
        weather = weatherReponse
        return weatherReponse.value?.name
    }
+*/
 
 
- */
 }
+
+
