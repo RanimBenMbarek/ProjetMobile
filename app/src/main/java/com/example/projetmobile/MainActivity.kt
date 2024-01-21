@@ -2,15 +2,20 @@ package com.example.projetmobile
 
 import ImageLinks
 import Item
-
+import android.app.DownloadManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.compose.runtime.livedata.observeAsState
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,7 +45,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -54,20 +61,20 @@ import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.coil.CoilImage
 
 
-
 class MainActivity : ComponentActivity() {
     private val bookViewModel: BookViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var popularBooks: List<Item>;
+        var books: List<Item>;
+
         super.onCreate(savedInstanceState)
         popularBooks= emptyList()
         setContent {
-            // Use Column to arrange composables vertically
             Column(
                 modifier = Modifier
-                    .fillMaxSize() // Fill the entire available space
-                    .padding(16.dp) // Add padding for better spacing
+                    .fillMaxSize()
+                    .padding(16.dp)
             ) {
                 TextFieldView()
                 Spacer(modifier = Modifier.height(20.dp))
@@ -78,17 +85,13 @@ class MainActivity : ComponentActivity() {
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 // Use observeAsState to observe LiveData and update UI when data is received
-                val booksState = bookViewModel.books.observeAsState()
-
-                // Check if booksState is not null and not empty, then update popularBooks
-                booksState.value?.let { booksResponse ->
+                val popularBooksState = bookViewModel.popularBooks.observeAsState()
+                popularBooksState.value?.let { booksResponse ->
                     val books = booksResponse.items
                     if (books.isNotEmpty()) {
                         popularBooks = books
                     }
                 }
-
-                // Check if popularBooks is not empty, then display the list
                 if (popularBooks.isNotEmpty()) {
                     LazyRowFunction(popularBooks)
                 } else {
@@ -99,12 +102,25 @@ class MainActivity : ComponentActivity() {
                 //LazyColumnFunction(popularBooks)
 
 
-                Spacer(modifier = Modifier.height(20.dp))
+                //Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "List of Books",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
+                val booksState = bookViewModel.popularBooks.observeAsState()
+                booksState.value?.let { booksResponse ->
+                    val books = booksResponse.items
+                    if (books.isNotEmpty()) {
+                        popularBooks = books
+                    }
+                }
+                if (popularBooks.isNotEmpty()) {
+                    LazyRowFunction(popularBooks)
+                } else {
+                    // If the list is empty, display some placeholder or alternative UI
+                    //BookDetails()
+                }
 
             }
         }
@@ -122,6 +138,7 @@ fun BookDetails() {
             .fillMaxWidth()
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
+
     ) {
         // Adjusted Image to be in a rectangle shape
         Image(
@@ -179,54 +196,17 @@ fun BookDetails() {
 }
 
 
-@Composable()
-fun LoadImage(imageLinks : ImageLinks) {
 
-if (imageLinks != null) {
-    val url: StringBuilder = StringBuilder(imageLinks.thumbnail)
-    url.insert(4, "s")
-
-    CoilImage(
-        modifier = Modifier
-            .size(100.dp, 200.dp),
-        loading = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
-        },
-        imageModel = url.toString(),
-        contentScale = ContentScale.Fit,
-    )
-} else {
-    Box(
-        modifier = Modifier
-            .size(100.dp, 200.dp),
-    ) {
-        Image(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(70.dp, 200.dp),
-            imageVector = ImageVector.vectorResource(R.drawable.ic_launcher_background),
-            contentDescription = "",
-            //colorFilter = ColorFilter.tint(MaterialTheme.colors.onSecondary),
-        )
-    }
-
-}
-}
 
 @Composable
 fun Book(item: Item) {
+
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(150.dp)
+            .height(300.dp)
             .background(MaterialTheme.colorScheme.background)
-            .padding(10.dp)
+            .padding(5.dp)
     ) {
         if (item.volumeInfo.imageLinks != null) {
             val url: StringBuilder = StringBuilder(item.volumeInfo.imageLinks.thumbnail)
