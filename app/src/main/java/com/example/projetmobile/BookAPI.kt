@@ -9,7 +9,7 @@ import retrofit2.http.Path
 interface BookAPI {
     @GET("volumes?q=love&langRestrict=en&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
     fun getPopularBooks(): Call<book>
-    @GET("volumes?q=war&langRestrict=en&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
+    @GET("volumes?q=generation&langRestrict=en&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
     fun getBooks(): Call<book>
 
     @GET("volumes?{volumeId}&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
