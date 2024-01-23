@@ -270,7 +270,6 @@ fun Book(item: Item) {
         if (item.volumeInfo.imageLinks != null) {
             val url: StringBuilder = StringBuilder(item.volumeInfo.imageLinks.thumbnail)
             url.insert(4, "s")
-
             CoilImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -289,17 +288,14 @@ fun Book(item: Item) {
                 contentScale = ContentScale.Fit,
             )
         } else {
-            // Use a placeholder image or handle the case when imageLinks are null
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp),
                 painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = null, // Provide appropriate content description
+                contentDescription = null,
             )
         }
-
-        // Title
         Text(
             text = item.volumeInfo.title ?: "",
             modifier = Modifier
@@ -347,10 +343,6 @@ fun TextFieldView() {
         )
     }
 }
-
-
-
-
 
 @Composable
 private fun LazyRowFunction(
