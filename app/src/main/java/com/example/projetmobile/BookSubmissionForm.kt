@@ -1,5 +1,6 @@
 package com.example.projetmobile
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,7 +29,7 @@ class BookRequestActivity : ComponentActivity() {
         }
     }
 
-    private fun sendEmail(title: String, authors: String, language: String, category: String, description: String,isbn: String) {
+     fun sendEmail(title: String, authors: String, language: String, category: String, description: String,isbn: String) {
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
             putExtra(Intent.EXTRA_EMAIL, arrayOf("farahseddik500@gmail.com"))
@@ -36,6 +38,33 @@ class BookRequestActivity : ComponentActivity() {
         }
         startActivity(Intent.createChooser(emailIntent, "Send email..."))
     }
+}
+
+@Composable
+fun BookRequestScreen() {
+    val context = LocalContext.current
+
+    BookSubmissionForm { title, authors, language, category, description, isbn ->
+        sendEmail(context, title, authors, language, category, description, isbn)
+    }
+}
+
+private fun sendEmail(
+    context: Context,
+    title: String,
+    authors: String,
+    language: String,
+    category: String,
+    description: String,
+    isbn: String
+) {
+    val intent = Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.parse("mailto:")
+        putExtra(Intent.EXTRA_EMAIL, arrayOf("farahseddik500@gmail.com"))
+        putExtra(Intent.EXTRA_SUBJECT, "Missing Book Request")
+        putExtra(Intent.EXTRA_TEXT, "Title: $title\nAuthors: $authors\nLanguage: $language\nCategory: $category\nDescription: $description\nISBN: $isbn")
+    }
+    context.startActivity(Intent.createChooser(intent, "Send email..."))
 }
 
 
@@ -52,6 +81,7 @@ fun BookSubmissionForm(onSubmit: (String, String, String, String, String, String
     Column(modifier = Modifier.padding(16.dp),
          verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.height(50.dp))
         Text(
             text = "Help us expand our book selection and Let us know what are we missing",
             fontSize = 20.sp,

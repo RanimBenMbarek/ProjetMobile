@@ -78,17 +78,18 @@ fun BookActivity(bookViewModel: BookViewModel) {
         }
     }
 
-    if (!isBookListVisible) {
-        // Show the list of book genres
+    Column(){
+        Spacer(modifier = Modifier.height(50.dp))
+        if (!isBookListVisible) {
         BookGenresList(onGenreSelected = { genre ->
             bookViewModel.searchBooks(genre)
             isBookListVisible = true
             selectedGenre=genre
         })
     } else {
-        // Show the list of books based on the selected genre
-        LazyRowFunction(books = booksByGenre)
-    }
+        LazyColumnFunction(books = booksByGenre)
+    }}
+
 }
 
 //displays a grid of books genres you can select from
