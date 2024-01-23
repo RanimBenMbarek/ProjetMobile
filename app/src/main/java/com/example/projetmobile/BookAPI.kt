@@ -5,14 +5,19 @@ import book
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BookAPI {
     @GET("volumes?q=love&langRestrict=en&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
     fun getPopularBooks(): Call<book>
     @GET("volumes?q=war&langRestrict=en&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
     fun getBooks(): Call<book>
-
     @GET("volumes?{volumeId}&key=AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ")
     fun getVolumeById(@Path("volumeId") volumeId: String): Call<VolumeInfo>
-
+    @GET("volumes")
+    fun searchBooks(
+        @Query("q") search: String,
+        @Query("langRestrict") langRestrict: String = "en",
+        @Query("key") apiKey: String = "AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ"
+    ): Call<book>
 }

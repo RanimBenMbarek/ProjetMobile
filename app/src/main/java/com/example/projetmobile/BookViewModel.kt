@@ -10,10 +10,16 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BookViewModel : ViewModel() {
+
     private val popularBooksResponse = MutableLiveData<book>()
     var popularBooks : LiveData<book> = popularBooksResponse
+
+    private val searchBooksResponse = MutableLiveData<book>()
+    var searchBooks : LiveData<book> = searchBooksResponse
+
     private val bookResponse = MutableLiveData<book>()
     var books : LiveData<book> = bookResponse
+
     private val volumeResponse = MutableLiveData<VolumeInfo>()
     var volume : LiveData<VolumeInfo> = volumeResponse
 
@@ -41,6 +47,26 @@ class BookViewModel : ViewModel() {
             }
         )
     }
+
+    fun searchBooks(searchWord:String) {
+        RetrofitHelper.retrofitService.searchBooks(searchWord).enqueue(
+            object : Callback<book> {
+                override fun onResponse(
+                    call: Call<book>,
+                    response: Response<book>
+                ) {
+                    if (response.isSuccessful) {
+                        searchBooksResponse.value = response.body()
+                    }
+                }
+
+                override fun onFailure(call: Call<book>, t: Throwable) {
+                    // Handle failure, if needed
+                }
+            }
+        )
+    }
+
     private fun getBooks() {
         RetrofitHelper.retrofitService.getBooks().enqueue(
             object : Callback<book> {
@@ -59,6 +85,7 @@ class BookViewModel : ViewModel() {
             }
         )
     }
+
     private fun getVolumeById(volumeId:String) {
         RetrofitHelper.retrofitService.getVolumeById(volumeId).enqueue(
             object : Callback<VolumeInfo> {
