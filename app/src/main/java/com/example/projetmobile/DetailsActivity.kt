@@ -8,7 +8,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.VectorConverter
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +23,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -118,7 +122,8 @@ fun BookDetailScreen(book: VolumeInfo) {
 
                     ) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier= Modifier.padding(top = 5.dp)
                         ) {
                             if (book.imageLinks != null) {
                                 CoilImage(
@@ -132,8 +137,15 @@ fun BookDetailScreen(book: VolumeInfo) {
                                     },
                                     modifier = Modifier
                                         .height(300.dp)
-                                        .padding(10.dp)
-                                        .width(200.dp),
+                                        .padding(5.dp)
+                                        .width(200.dp)
+                                        .shadow(5.dp, shape = RoundedCornerShape(8.dp), clip=true,
+                                            ambientColor=Color.Transparent ,
+                                            spotColor= Color.LightGray)
+
+                                        .border(1.dp, Color.Transparent, shape = RoundedCornerShape(16.dp)) // Add border
+                                        .clip(RoundedCornerShape(8.dp)),
+
                                     imageModel = book.imageLinks.thumbnail,
                                     contentScale = ContentScale.Fit,
                                 )
@@ -146,19 +158,22 @@ fun BookDetailScreen(book: VolumeInfo) {
                                 InfoTable(
                                     icon = Icons.Default.Star,
                                     title = "Rating",
-                                    value = book.averageRating.toString()
+                                    value = book.averageRating.toString(),
+                                    color = null
                                 )
                                 Spacer(modifier = Modifier.padding(10.dp))
                                 InfoTable(
                                     icon = painterResource(id = R.drawable.baseline_article_24),
                                     title = "Pages ",
-                                    value = book.pageCount.toString()
+                                    value = book.pageCount.toString(),
+                                    color = "#ba68c8"
                                 )
                                 Spacer(modifier = Modifier.padding(10.dp))
                                 InfoTable(
                                     icon = painterResource(id = R.drawable.baseline_g_translate_24),
                                     title = "Language",
-                                    value = book.language.uppercase()
+                                    value = book.language.uppercase(),
+                                    color = null,
                                 )
 
                             }
@@ -169,7 +184,7 @@ fun BookDetailScreen(book: VolumeInfo) {
                             text = book.title,
                             style = MaterialTheme.typography.titleLarge.copy(
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 25.sp
+                                fontSize = 28.sp
                             )
 
                         )
@@ -181,11 +196,12 @@ fun BookDetailScreen(book: VolumeInfo) {
 
                         Text(
                             text = "By $authors",
+
                             style = MaterialTheme.typography.titleMedium.copy(
-                                fontSize = 18.sp
-                            ),
+                                fontSize = 20.sp,
+                                color = Color(android.graphics.Color.parseColor("#231357"))),
                             modifier = Modifier
-                                .padding(top = 5.dp)
+                                .padding(top = 8.dp)
                         )
 
 
@@ -238,20 +254,19 @@ fun BookDetailScreen(book: VolumeInfo) {
 }
 
 @Composable
-fun <T> InfoTable(icon: T, title: String, value: String) where T : Any {
+fun <T> InfoTable(icon: T, title: String, value: String ,color :String?) where T : Any {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .width(80.dp)
-          //  .background(color = colorResource(R.color.purple_200)),
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             when (icon) {
-                is ImageVector -> Icon(imageVector = icon, contentDescription = null)
-                is Painter -> Icon(painter = icon, contentDescription = null)
+                is ImageVector -> Icon(imageVector = icon, contentDescription = null, tint = Color(android.graphics.Color.parseColor("#ffd700")))
+                is Painter -> Icon(painter = icon, contentDescription = null , tint = Color(android.graphics.Color.parseColor(color?:"#3c9dff")))
                 else -> error("Unsupported icon type")
             }
 
@@ -283,7 +298,8 @@ fun BookDescription(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = title,
@@ -294,14 +310,18 @@ fun BookDescription(
             )
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
             )
         }
 
         Text(
             text = description,
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.onSurface,
+
+                color = colorResource(R.color.dark_grey),
                 fontSize = 18.sp
             )
         )
