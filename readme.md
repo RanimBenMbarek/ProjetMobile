@@ -81,21 +81,14 @@ The Navigation component is used for navigating between different screens in a s
 
 ####  MVVM Architecture
 
-##### Model 
-It represents the data and business logic. In this context, it interacts with the Google Books API .  
+##### Model : Represents the data and business logic. In this context, it interacts with the Google Books API .  
 
-##### ViewModel   
-
-
- - **BookViewModel**:  
-     - Manages data for the UI, including popular books, categorized books, and book details. 
-     - Handles user interactions, such as search queries and book requests.
-
-
- - **NetworkErrorViewModel** :
-     - Specialized ViewModel responsible for checking internet connectivity.
-
-
-###### View
-It represents the UI and displays data provided by the ViewModel
+##### ViewModel :    
+- **BookViewModel**:  
+    - Manages data for the UI, including popular books, categorized books, and book details. 
+    - Handles user interactions, such as search queries and book requests.
+- **NetworkErrorViewModel** :
+  - Specialized ViewModel responsible for checking internet connectivity.
+     
+##### View : Represents the UI and displays data provided by the ViewModel
 
