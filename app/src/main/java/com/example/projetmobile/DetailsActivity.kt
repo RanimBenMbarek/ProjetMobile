@@ -2,6 +2,7 @@ package com.example.projetmobile
 
 import VolumeInfo
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
@@ -22,6 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,12 +49,37 @@ class DetailsActivity : ComponentActivity() {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun BookDetailScreen(book: VolumeInfo) {
+    val context = LocalContext.current // Get the current context
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
+    Scaffold(
+        topBar = {
 
+            TopAppBar(
+
+                title = {
+
+                    Text(
+                        text = book.title ?: "Book Details",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 26.sp,
+                            color = Color(android.graphics.Color.parseColor("#ba68c8"))
+                        )
+                    )
+
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        val intent = Intent(context, HomePageActivity::class.java)
+                        context.startActivity(intent)
+                    }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+            )
+        }
     ) {
         LazyColumn(
 
@@ -59,12 +88,12 @@ fun BookDetailScreen(book: VolumeInfo) {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
-                        .border(1.dp, Color(0xFFBB86FC), shape = RoundedCornerShape(20.dp))
+                      //  .border(1.dp, Color(0xFFBB86FC), shape = RoundedCornerShape(20.dp))
                 ) {
                     Column(
                         modifier = Modifier
-                            .background(Color(android.graphics.Color.parseColor("#e5d0ff")))
-                            .height(400.dp)
+                           // .background(Color(android.graphics.Color.parseColor("#e5d0ff")))
+                            .height(380.dp)
                             .fillMaxWidth()
                             .padding(4.dp)
                             .padding(bottom = 10.dp),
@@ -110,14 +139,7 @@ fun BookDetailScreen(book: VolumeInfo) {
 
                         }
 
-                        Text(
-                            text = book.title,
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 32.sp
-                            )
 
-                        )
 
                         val authors =
                             if (book.authors != null) book.authors.joinToString(
@@ -266,7 +288,7 @@ fun BookDescription(
                         color = colorResource(R.color.dark_grey),
                         fontSize = 18.sp
                     ),
-                    maxLines = 5
+                    maxLines = 7
                 )
             }
         }
