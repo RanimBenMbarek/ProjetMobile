@@ -1,19 +1,17 @@
 package com.example.projetmobile
 
-import ImageLinks
 import Item
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.runtime.livedata.observeAsState
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,9 +29,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
@@ -72,12 +70,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -88,12 +84,8 @@ class HomePageActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        var popularBooks: List<Item>;
-        var books: List<Item>;
 
         super.onCreate(savedInstanceState)
-        popularBooks= emptyList()
-        books= emptyList()
         setContent {
                 SampleAppNavGraph(bookViewModel = bookViewModel)
         }
@@ -167,7 +159,7 @@ fun MyAppNavHost(
         startDestination = startDestination
     ) {
         composable("Home") {
-            HomePage(bookViewModel = bookViewModel)
+            HomePage(bookViewModel = bookViewModel,navController)
 
         }
         composable("By Category") {
@@ -180,9 +172,9 @@ fun MyAppNavHost(
     }
 }
 
-
+@SuppressLint("SuspiciousIndentation")
 @Composable
-fun HomePage(bookViewModel: BookViewModel) {
+fun HomePage(bookViewModel: BookViewModel,navController: NavHostController,) {
     var popularBooks: List<Item>;
     var books: List<Item>;
         popularBooks= emptyList()
@@ -196,21 +188,24 @@ fun HomePage(bookViewModel: BookViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
+                    .padding(
+                        start = 10.dp,
+                        //end = 16.dp,
+                        top = 70.dp
+                    )
             ) {
                 if (connectionErrorState.value == true) {
                     NetworkErrorScreen(
-                        onRetry = {},
+                        onRetry = {navController.navigate("Home")},
                         modifier = Modifier.fillMaxSize()
                     )
                 } else if (apiErrorState.value != null) {
                     ApiErrorScreen(
                         errorMessage = apiErrorState.value!!,
-                        onRetry = {},
+                        onRetry = {navController.navigate("Home")},
                         modifier = Modifier.fillMaxSize()
                     )
                 } else {
-                    var searchText by remember { mutableStateOf("") }
                     var displayedBooks by remember { mutableStateOf(books) }
 
                     val searchTextState = remember { mutableStateOf("") }
@@ -223,7 +218,7 @@ fun HomePage(bookViewModel: BookViewModel) {
                         searchTextState = searchTextState
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "Popular Books",
                         fontSize = 30.sp,
@@ -260,9 +255,8 @@ fun HomePage(bookViewModel: BookViewModel) {
                         }
                     }
 
-                    if (displayedBooks.isNotEmpty()) {
-                        LazyColumnFunction(displayedBooks)
-                    }
+                    LazyColumnFunction(displayedBooks, navController = navController)
+
                 }
             }
         }
@@ -299,7 +293,7 @@ fun BookDetails(item: Item) {
                 CoilImage(
                     modifier = Modifier
                         .height(150.dp)
-                        .width(150.dp), // Set the width as needed
+                        .width(150.dp),
                     loading = {
                         Box(
                             modifier = Modifier
@@ -320,7 +314,6 @@ fun BookDetails(item: Item) {
                     contentScale = ContentScale.Fit,
                 )
             } else {
-                // Placeholder image
                 Image(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -339,7 +332,6 @@ fun BookDetails(item: Item) {
                     .fillMaxSize()
                     .padding(start = 8.dp, top = 16.dp, end = 8.dp, bottom = 24.dp) // Adjust the padding values
             ) {
-                // Title
                 Text(
                     text = item.volumeInfo.title ?: "",
                     style = MaterialTheme.typography.titleSmall.copy(
@@ -349,8 +341,6 @@ fun BookDetails(item: Item) {
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
-
-                // Authors
                 val author = item.volumeInfo.authors?.getOrNull(0) ?: "Unknown Author"
                 Text(
                     text = author,
@@ -479,7 +469,8 @@ fun TextFieldView(
                 val filteredBooks = filterBooksByTitle(it, books)
                 onSearch(filteredBooks)
             },
-            placeholder = { "Search book"
+            placeholder = {
+                Text(text ="Search book")
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
@@ -521,9 +512,10 @@ fun LoadingIcon() {
     }
 }
 @Composable
-fun LazyColumnFunction(
+private fun LazyColumnFunction(
     books: List<Item>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ) {
     LazyColumn(modifier) {
         if (books.isNotEmpty()) {
@@ -531,7 +523,27 @@ fun LazyColumnFunction(
                 BookDetails(book)
             }
         } else {
-            //Text("No matching books found")
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text("No matching books found")
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = {
+                            navController.navigate("Request a missing book")
+                        },
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Text("Request a Book")
+                    }
+                }
+            }
         }
     }
 }
+

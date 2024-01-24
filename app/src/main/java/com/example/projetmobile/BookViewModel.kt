@@ -40,12 +40,12 @@ class BookViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         popularBooksResponse.value = response.body()
                     }else{
-
+                        _apiError.value="Failed to fetch data.Please try again"
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    // Handle failure, if needed
+                    _apiError.value="Failed to fetch data.Please try again"
                 }
             }
         )
@@ -60,11 +60,13 @@ class BookViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         searchBooksResponse.value = response.body()
+                    }else{
+                        _apiError.value="Failed to fetch data.Please try again"
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    // Handle failure, if needed
+                    _apiError.value="Failed to fetch data.Please try again"
                 }
             }
         )
@@ -79,11 +81,13 @@ class BookViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         bookResponse.value = response.body()
+                    }else{
+                        _apiError.value="Failed to fetch data.Please try again"
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    // Handle failure, if needed
+                    _apiError.value="Failed to fetch data.Please try again"
                 }
             }
         )

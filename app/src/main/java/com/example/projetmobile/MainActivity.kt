@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
         ) {
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = "Welcome into Booky",
+                text = "BookExplorer App",
                 style = TextStyle(
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
@@ -130,7 +130,6 @@ class MainActivity : ComponentActivity() {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Add error dialog or toast as needed
         if (showErrorDialog) {
             AlertDialog(
                 onDismissRequest = { showErrorDialog = false },

@@ -52,7 +52,6 @@ class DetailsActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 fun BookDetailScreen(book: VolumeInfo) {
     val context = LocalContext.current // Get the current context
-
     Scaffold(
         topBar = {
 
