@@ -11,5 +11,6 @@
     <color name="light_grey">#4C4C4E</color>
     <color name="primary">#4C4C4E</color>
     <color name="secondary">#F7F5EB</color>
-
+    <color name="background">#FFECF0F1</color>
+    <color name="violet">#FF8c7ae6</color>
 </resources>
