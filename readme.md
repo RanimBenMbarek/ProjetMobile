@@ -10,7 +10,7 @@ BookExplorer is an Android application that allows users to explore and discover
 - [Screenshots](#screenshots)
 - [Dependencies](#dependencies)
 - [Decisions of Design](#decisions-of-design)
-- [Role of ViewModel](#role-of-viewmodel)
+
 
 ## Features
 
@@ -75,7 +75,7 @@ The Navigation component is used for navigating between different screens in a s
 
 Custom error handling screens have been implemented to provide users with clear feedback in case of network errors or API failures.
 
-### Role of ViewModel
+### ViewModel
 The ViewModel (ViewModel-View-Model or VVM) plays a crucial role in managing the UI-related data and handling the communication between the UI and the underlying data sources.
 
 In the BookExplorer app, the BookViewModel is responsible for:
