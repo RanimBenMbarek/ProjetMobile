@@ -1,16 +1,16 @@
 package com.example.projetmobile
 
+import ImageLinks
 import Item
-import android.content.Intent
-import android.annotation.SuppressLint
 import androidx.compose.runtime.livedata.observeAsState
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,25 +28,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
-import androidx.compose.material3.DrawerState
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -75,20 +65,18 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.skydoves.landscapist.coil.CoilImage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 class HomePageActivity : ComponentActivity() {
     private val bookViewModel: BookViewModel by viewModels()
 
-
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        var popularBooks: List<Item>;
+        var books: List<Item>;
 
         super.onCreate(savedInstanceState)
-
+        popularBooks= emptyList()
+        books= emptyList()
         setContent {
                 SampleAppNavGraph(bookViewModel = bookViewModel)
         }
@@ -261,15 +249,14 @@ fun HomePage(bookViewModel: BookViewModel) {
                 }
             }
         }
-
-
-
+>>>>>>>>> Temporary merge branch 2
+    }
+}
 
 
 
 @Composable
-fun BookDetails(item: Item ) {
-    val context = LocalContext.current
+fun BookDetails(item: Item) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -279,11 +266,6 @@ fun BookDetails(item: Item ) {
                 color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable {
-                val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("volume", item.volumeInfo)
-                context.startActivity(intent)
-            }
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -400,19 +382,12 @@ fun BookDetails(item: Item ) {
 }
 @Composable
 fun Book(item: Item) {
-    val context = LocalContext.current
     Column(
         modifier = Modifier
             .width(150.dp)
             .height(250.dp)
             .background(MaterialTheme.colorScheme.background)
             .padding(2.dp)
-            .clickable {
-                val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("volume", item.volumeInfo)
-                context.startActivity(intent)
-
-            }
     ) {
         if (item.volumeInfo.imageLinks != null) {
             val url: StringBuilder = StringBuilder(item.volumeInfo.imageLinks.thumbnail)
@@ -420,7 +395,7 @@ fun Book(item: Item) {
             CoilImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp),
+                    .height(180.dp),
                 loading = {
                     Box(
                         modifier = Modifier
@@ -497,7 +472,9 @@ private fun filterBooksByTitle(title: String, books: List<Item>): List<Item> {
 }
 
 @Composable
-
+<<<<<<<<< Temporary merge branch 1
+ fun LazyRowFunction(
+=========
 fun LazyRowFunction(
     books: List<Item>,
     modifier: Modifier=Modifier
