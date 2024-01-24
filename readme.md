@@ -47,11 +47,10 @@ BookExplorer is an Android application that allows users to explore and discover
 
 
 ## Screenshots
-
 | Page       | Login Page                                                                      | Home Page                               | By Category                                                                                                                                                                              | Book Details Page                                                                         | Request a Missing Book                                  |
 |------------|---------------------------------------------------------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| ScreenShot | ![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q) | ![Home Page](screenshots/home_page.png) | ![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX) ![List Of Books of the same category](https://drive.google.com/uc?id=1tAshC6IskRVpqhEwEzlw68uKiIhyua6Q) | ![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7) | ![Request a Missing Book](screenshots/request_book.png) |                              
-                                                                                                                          |
+| ScreenShot | ![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q) | ![Home Page](screenshots/home_page.png) | <div style="display: flex; justify-content: space-between;"> ![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX) ![List Of Books of the same category](https://drive.google.com/uc?id=1tAshC6IskRVpqhEwEzlw68uKiIhyua6Q) </div> | ![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7) | ![Request a Missing Book](screenshots/request_book.png) |
+                                                                                                                      |
 
 
 
