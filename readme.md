@@ -46,30 +46,14 @@ BookExplorer is an Android application that allows users to explore and discover
    - Includes a sidebar for easy navigation to different sections of the app.
 
 
-
-
 ## Screenshots
 
-### Login Page
-![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q)
+| Page       | Login Page                                                                      | Home Page                               | By Category                                                                                                                                                                              | Book Details Page                                                                         | Request a Missing Book                                  |
+|------------|---------------------------------------------------------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| ScreenShot | ![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q) | ![Home Page](screenshots/home_page.png) | ![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX) ![List Of Books of the same category](https://drive.google.com/uc?id=1tAshC6IskRVpqhEwEzlw68uKiIhyua6Q) | ![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7) | ![Request a Missing Book](screenshots/request_book.png) |                              
+                                                                                                                          |
 
 
-### Home Page
-![Home Page](screenshots/home_page.png)
-
-### By Category
-![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX)  ![ & List Of Books of the same category](https://drive.google.com/uc?id=1tAshC6IskRVpqhEwEzlw68uKiIhyua6Q)
-
-
-### Book Details Display
-![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7)
-
-
-### Request a Missing Book
-![Request a Missing Book](screenshots/request_book.png)
-
-### Sidebar
-![Sidebar](screenshots/sidebar.png)
 
 
 ## Dependencies
