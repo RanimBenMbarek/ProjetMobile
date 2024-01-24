@@ -6,13 +6,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.runtime.livedata.observeAsState
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +29,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
@@ -181,6 +178,7 @@ fun MyAppNavHost(
 }
 
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun HomePage(bookViewModel: BookViewModel) {
     var popularBooks: List<Item>;
