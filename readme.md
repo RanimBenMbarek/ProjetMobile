@@ -8,12 +8,6 @@ BookExplorer is an Android application that allows users to explore and discover
 
 - [Features](#features)
 - [Screenshots](#screenshots)
-   - [Login Page](#login-page)
-   - [Home Page](#home-page)
-   - [By Category](#by-category)
-   - [Book Details Page](#book-details-display)
-   - [Request a Missing Book](#request-a-missing-book)
-   - [Sidebar](#sidebar)
 - [Dependencies](#dependencies)
 - [Decisions of Design](#decisions-of-design)
 - [Role of ViewModel](#role-of-viewmodel)
@@ -47,10 +41,10 @@ BookExplorer is an Android application that allows users to explore and discover
 
 
 ## Screenshots
-| Page       | Login Page                                                                      | Home Page                               | By Category                                                                                                                                                                                                                                                                      | Book Details Page                                                                         | Request a Missing Book                                  |
-|------------|---------------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| ScreenShot | ![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q) | ![Home Page](screenshots/home_page.png) | <div style="display: flex; flex-direction:row; justify-content: space-between;"> ![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX) ![List Of Books of the same category](https://drive.google.com/uc?id=1tAshC6IskRVpqhEwEzlw68uKiIhyua6Q) </div> | ![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7) | ![Request a Missing Book](screenshots/request_book.png) |
-                                                                                                                      |
+| Page       | Login Page                                                                      | Home Page                               | By Category                                                                      | Book Details Page                                                                         | Request a Missing Book                                  |
+|------------|---------------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| ScreenShot | ![Login Page](https://drive.google.com/uc?id=19yAVoDRRCZ8-0vwj0B_qXRCs_mzgRh6Q) | ![Home Page](screenshots/home_page.png) | ![By Category](https://drive.google.com/uc?id=17rQDYypN52mJnw32O0lkqeBSAI5J1JKX) | ![Book Details Display](https://drive.google.com/uc?id=1KvNbJu18Zov7joCW2IilH0CytxFLYpS7) | ![Request a Missing Book](screenshots/request_book.png) |
+                                                                                                           
 
 
 
@@ -80,6 +74,7 @@ The Navigation component is used for navigating between different screens in a s
 #### Error Handling Screens:
 
 Custom error handling screens have been implemented to provide users with clear feedback in case of network errors or API failures.
+
 ### Role of ViewModel
 The ViewModel (ViewModel-View-Model or VVM) plays a crucial role in managing the UI-related data and handling the communication between the UI and the underlying data sources.
 
