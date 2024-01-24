@@ -29,7 +29,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -49,6 +48,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
@@ -64,9 +64,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -180,56 +180,93 @@ fun MyAppNavHost(
 fun HomePage(bookViewModel: BookViewModel) {
     var popularBooks: List<Item>;
     var books: List<Item>;
+        popularBooks= emptyList()
+        books= emptyList()
 
+    val context = LocalContext.current
+    val netWorkErrorViewModel: NetWorkErrorViewModel = viewModel(factory = NetWorkErrorViewModelFactory(context))
+    val apiErrorState = bookViewModel.apiError.observeAsState()
+    val connectionErrorState = netWorkErrorViewModel.connectionError.observeAsState()
 
-    popularBooks= emptyList()
-    books= emptyList()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.height(50.dp))
-        TextFieldView()
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Popular Books",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        // Use observeAsState to observe LiveData and update UI when data is received
-        val popularBooksState = bookViewModel.popularBooks.observeAsState()
-        popularBooksState.value?.let { booksResponse ->
-            val books = booksResponse.items
-            if (books.isNotEmpty()) {
-                popularBooks = books
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                if (connectionErrorState.value == true) {
+                    NetworkErrorScreen(
+                        onRetry = {},
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else if (apiErrorState.value != null) {
+                    ApiErrorScreen(
+                        errorMessage = apiErrorState.value!!,
+                        onRetry = {},
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    var searchText by remember { mutableStateOf("") }
+                    var displayedBooks by remember { mutableStateOf(books) }
+
+                    val searchTextState = remember { mutableStateOf("") }
+
+                    TextFieldView(
+                        books = books,
+                        onSearch = { filteredBooks ->
+                            displayedBooks = filteredBooks
+                        },
+                        searchTextState = searchTextState
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = "Popular Books",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    val popularBooksState = bookViewModel.popularBooks.observeAsState()
+                    popularBooksState.value?.let { booksResponse ->
+                        val books = booksResponse.items
+                        if (books.isNotEmpty()) {
+                            popularBooks = books
+                        }
+                    }
+
+                    if (popularBooks.isNotEmpty()) {
+                        LazyRowFunction(popularBooks)
+                    } else {
+                        LoadingIcon()
+                    }
+
+                    //Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = "List of Books",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    val booksState = bookViewModel.books.observeAsState()
+                    booksState.value?.let { booksResponse ->
+                        val allBooks = booksResponse.items
+                        if (allBooks.isNotEmpty()) {
+                            books = allBooks
+                            displayedBooks = filterBooksByTitle(searchTextState.value, books)
+                        }
+                    }
+
+                    if (displayedBooks.isNotEmpty()) {
+                        LazyColumnFunction(displayedBooks)
+                    }
+                }
             }
         }
-        if (popularBooks.isNotEmpty()) {
-            LazyRowFunction(popularBooks)
-        } else {
-            LoadingIcon()
-        }
 
-        Text(
-            text = "List of Books",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-        val booksState = bookViewModel.books.observeAsState()
-        booksState.value?.let { booksResponse ->
-            val allBooks = booksResponse.items
-            if (allBooks.isNotEmpty()) {
-                books = allBooks
-            }
-        }
-        if (books.isNotEmpty()) {
-            LazyColumnFunction(books)
-        }
 
-    }
-}
+
+
+
+
 @Composable
 fun BookDetails(item: Item ) {
     val context = LocalContext.current
@@ -359,16 +396,6 @@ fun BookDetails(item: Item ) {
             }
         }
 
-        // Save Icon in Top Right
-        Icon(
-            painter = painterResource(id = R.drawable.baseline_bookmark_border_24),
-            contentDescription = "save",
-            tint = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .padding(16.dp)
-                .size(24.dp)
-                .align(Alignment.TopEnd)
-        )
     }
 }
 @Composable
@@ -376,8 +403,8 @@ fun Book(item: Item) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
-            .width(120.dp)
-            .height(190.dp)
+            .width(150.dp)
+            .height(250.dp)
             .background(MaterialTheme.colorScheme.background)
             .padding(2.dp)
             .clickable {
@@ -430,33 +457,32 @@ fun Book(item: Item) {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun TextFieldView() {
-    var textState by remember { mutableStateOf(value = "") }
-
+fun TextFieldView(
+    books: List<Item>,
+    onSearch: (List<Item>) -> Unit,
+    searchTextState: MutableState<String>
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(RoundedCornerShape(25.dp)) // Set the rounded corners for the Box
+            .clip(RoundedCornerShape(25.dp))
     ) {
         OutlinedTextField(
-            value = textState,
-            onValueChange = { textState = it },
-            placeholder = {
-                Text(text = "Search book")
+            value = searchTextState.value,
+            onValueChange = {
+                searchTextState.value = it
+                // Modify the onSearch function to filter books by title
+                val filteredBooks = filterBooksByTitle(it, books)
+                onSearch(filteredBooks)
+            },
+            placeholder = { "Search book"
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            },
+
             textStyle = TextStyle(fontSize = 20.sp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -464,8 +490,15 @@ fun TextFieldView() {
     }
 }
 
+private fun filterBooksByTitle(title: String, books: List<Item>): List<Item> {
+    return books.filter {
+        it.volumeInfo.title?.contains(title, ignoreCase = true) == true
+    }
+}
+
 @Composable
- fun LazyRowFunction(
+
+fun LazyRowFunction(
     books: List<Item>,
     modifier: Modifier=Modifier
 ){
@@ -487,15 +520,17 @@ fun LoadingIcon() {
     }
 }
 @Composable
- fun LazyColumnFunction(
+fun LazyColumnFunction(
     books: List<Item>,
-    modifier: Modifier=Modifier
-){
-    LazyColumn(modifier){
-        if (books != null) {
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier) {
+        if (books.isNotEmpty()) {
             items(books) { book ->
                 BookDetails(book)
             }
+        } else {
+            //Text("No matching books found")
         }
     }
 }

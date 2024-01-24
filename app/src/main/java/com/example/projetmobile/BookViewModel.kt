@@ -21,6 +21,9 @@ class BookViewModel : ViewModel() {
     private val bookResponse = MutableLiveData<book>()
     var books: LiveData<book> = bookResponse
 
+    private val _apiError = MutableLiveData<String?>(null)
+    val apiError: LiveData<String?> = _apiError
+
 
     init {
         getPopularBooks();
@@ -36,6 +39,8 @@ class BookViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         popularBooksResponse.value = response.body()
+                    }else{
+
                     }
                 }
 
