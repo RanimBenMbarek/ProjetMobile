@@ -1,16 +1,15 @@
 package com.example.projetmobile
 
-import ImageLinks
 import Item
+import android.content.Intent
 import androidx.compose.runtime.livedata.observeAsState
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,13 +39,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -63,6 +62,7 @@ class HomePageActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         var popularBooks: List<Item>;
         var books: List<Item>;
+
 
         super.onCreate(savedInstanceState)
         popularBooks= emptyList()
@@ -94,7 +94,7 @@ class HomePageActivity : ComponentActivity() {
                 } else {
                     LoadingIcon()
                 }
-                Log.d("API", popularBooks.toString())
+
                 //LazyColumnFunction(popularBooks)
 
 
@@ -124,7 +124,8 @@ class HomePageActivity : ComponentActivity() {
 
 
 @Composable
-fun BookDetails(item: Item) {
+fun BookDetails(item: Item ) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,6 +135,11 @@ fun BookDetails(item: Item) {
                 color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(16.dp)
             )
+            .clickable {
+                val intent = Intent(context, DetailsActivity::class.java)
+                intent.putExtra("volume", item.volumeInfo)
+                context.startActivity(intent)
+            }
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -258,14 +264,24 @@ fun BookDetails(item: Item) {
         )
     }
 }
+
+
+
 @Composable
 fun Book(item: Item) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .width(150.dp)
             .height(250.dp)
             .background(MaterialTheme.colorScheme.background)
             .padding(2.dp)
+            .clickable {
+                val intent = Intent(context, DetailsActivity::class.java)
+                intent.putExtra("volume", item.volumeInfo)
+                context.startActivity(intent)
+
+            }
     ) {
         if (item.volumeInfo.imageLinks != null) {
             val url: StringBuilder = StringBuilder(item.volumeInfo.imageLinks.thumbnail)
@@ -345,9 +361,11 @@ fun TextFieldView() {
 }
 
 @Composable
-private fun LazyRowFunction(
+ fun LazyRowFunction(
     books: List<Item>,
-    modifier: Modifier=Modifier
+    modifier: Modifier=Modifier,
+
+
 ){
     LazyRow(modifier){
         if (books != null) {
@@ -369,7 +387,8 @@ fun LoadingIcon() {
 @Composable
 private fun LazyColumnFunction(
     books: List<Item>,
-    modifier: Modifier=Modifier
+    modifier: Modifier=Modifier,
+
 ){
     LazyColumn(modifier){
         if (books != null) {
