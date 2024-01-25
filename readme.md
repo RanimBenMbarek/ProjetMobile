@@ -4,6 +4,10 @@
 
 BookExplorer is an Android application that allows users to explore and discover books using [the Google Books API.](https://developers.google.com/books/docs/v1/using) The app is built using Jetpack Compose for the UI, Retrofit for network requests, and leverages the capabilities of the Google Books API to provide users with information about various books.
 
+## Demo
+
+[demo](https://drive.google.com/uc?id=1XDDk6MNVXgcBEM42AyHMa1OlArW8jF0J)
+
 ## Table of Contents
 
 - [Features](#features)
