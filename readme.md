@@ -6,7 +6,7 @@ BookExplorer is an Android application that allows users to explore and discover
 
 ## Demo
 
-[demo](https://drive.google.com/uc?id=1XDDk6MNVXgcBEM42AyHMa1OlArW8jF0J)
+![demo](https://drive.google.com/uc?id=1XDDk6MNVXgcBEM42AyHMa1OlArW8jF0J)
 
 ## Table of Contents
 
