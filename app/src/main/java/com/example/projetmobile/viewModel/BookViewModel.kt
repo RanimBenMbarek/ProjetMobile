@@ -1,11 +1,10 @@
-package com.example.projetmobile
+package com.example.projetmobile.viewModel
 
-import VolumeInfo
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import book
+import com.example.projetmobile.data.API.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +23,8 @@ class BookViewModel : ViewModel() {
     private val _apiError = MutableLiveData<String?>(null)
     val apiError: LiveData<String?> = _apiError
 
+    private val errorMessage = "Failed to fetch data.Please try again"
+
 
     init {
         getPopularBooks();
@@ -40,12 +41,12 @@ class BookViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         popularBooksResponse.value = response.body()
                     }else{
-                        _apiError.value="Failed to fetch data.Please try again"
+                        _apiError.value=errorMessage
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    _apiError.value="Failed to fetch data.Please try again"
+                    _apiError.value=errorMessage
                 }
             }
         )
@@ -61,12 +62,12 @@ class BookViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         searchBooksResponse.value = response.body()
                     }else{
-                        _apiError.value="Failed to fetch data.Please try again"
+                        _apiError.value=errorMessage
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    _apiError.value="Failed to fetch data.Please try again"
+                    _apiError.value=errorMessage
                 }
             }
         )
@@ -82,12 +83,12 @@ class BookViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         bookResponse.value = response.body()
                     }else{
-                        _apiError.value="Failed to fetch data.Please try again"
+                        _apiError.value=errorMessage
                     }
                 }
 
                 override fun onFailure(call: Call<book>, t: Throwable) {
-                    _apiError.value="Failed to fetch data.Please try again"
+                    _apiError.value=errorMessage
                 }
             }
         )

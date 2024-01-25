@@ -77,10 +77,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.4.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0")
-    // Coil
     implementation ("com.github.skydoves:landscapist-coil:1.3.6")
-
-    // Accompanist
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.19.0")
     implementation ("com.google.accompanist:accompanist-insets:0.19.0")
     implementation ("com.google.accompanist:accompanist-insets-ui:0.19.0")

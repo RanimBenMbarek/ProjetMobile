@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.data.API
 
 import book
 import retrofit2.Call
@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface BookAPI {
     companion object {
-        const val key = "AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ"
+        private const val key = "AIzaSyAMgls3MVSdN3YVefr5cWDvEsY32T_bYpQ"
     }
 
     @GET("volumes?q=love&langRestrict=en&key=$key")

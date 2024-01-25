@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.view.navigation
 
 import androidx.navigation.NavController
 

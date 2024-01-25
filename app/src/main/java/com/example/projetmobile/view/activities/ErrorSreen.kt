@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.view.activities
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

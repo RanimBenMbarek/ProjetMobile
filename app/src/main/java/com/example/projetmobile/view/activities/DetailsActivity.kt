@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.view.activities
 
 import VolumeInfo
 import android.annotation.SuppressLint
@@ -6,9 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,18 +21,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projetmobile.components.LoadDetailsImage
+import com.example.projetmobile.R
+import com.example.projetmobile.view.components.BookDescription
+import com.example.projetmobile.view.components.LoadDetailsImage
 
 
 class DetailsActivity : ComponentActivity() {
-    private val bookViewModel: BookViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -71,7 +67,7 @@ fun BookDetailScreen(book: VolumeInfo) {
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        val intent = Intent(context, HomePageActivity::class.java)
+                        val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                     }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
@@ -242,58 +238,5 @@ fun <T> InfoTable(icon: T, title: String, value: String ,color :String?) where T
         )
     }
 }
-
-
-
-@Composable
-fun BookDescription(
-    title: String,
-    subtitle: String,
-    description: String
-) {
-    Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 22.sp
-                )
-            )
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.titleSmall.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
-                )
-            )
-        }
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(max = 200.dp) // Set the maximum height as needed
-        ) {
-            item {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = colorResource(R.color.dark_grey),
-                        fontSize = 18.sp
-                    ),
-                    maxLines = 7
-                )
-            }
-        }
-    }
-}
-
-
 
 

@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.view.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,6 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -31,9 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.projetmobile.R
 
 
-class MainActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
     @Composable
     fun LoginPage() {
         var email by remember { mutableStateOf("") }
@@ -76,14 +75,13 @@ class MainActivity : ComponentActivity() {
             )
             Spacer(modifier = Modifier.height(20.dp))
             Image(
-                painter = painterResource(id =R.drawable.book),
+                painter = painterResource(id = R.drawable.book),
                 contentDescription = null,
                 modifier = Modifier
                     .size(150.dp)
                     .padding(bottom = 18.dp, start = 5.dp, end = 16.dp, top = 8.dp)
                     .clip(RoundedCornerShape(16.dp))
             )
-
 
 
             Spacer(modifier = Modifier.height(50.dp))
@@ -109,8 +107,8 @@ class MainActivity : ComponentActivity() {
 
             Button(
                 onClick = {
-                    if (email == "gl4@gmail.com" && password == "0000") {
-                        val intent = Intent(context, HomePageActivity::class.java)
+                    if (email == "user@gmail.com" && password == "0000") {
+                        val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                     } else {
                         showErrorDialog = true

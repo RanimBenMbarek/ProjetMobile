@@ -1,4 +1,4 @@
-package com.example.projetmobile
+package com.example.projetmobile.viewModel
 
 import android.content.Context
 import android.net.ConnectivityManager
